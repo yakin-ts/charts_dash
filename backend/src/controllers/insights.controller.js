@@ -59,3 +59,59 @@ export function getACVByCustomerTypeAndIndustry() {
   
     return result;
   }
+
+  export function getCustomerTypeDistributionByTeam() {
+    const teamData = loadJSON('team.json');
+    const customerData = loadJSON('customerType.json');
+  
+    const quarter = '2023-Q3';
+  
+    const filteredTeams = teamData.filter(t => t.closed_fiscal_quarter === quarter);
+    const filteredCusts = customerData.filter(c => c.closed_fiscal_quarter === quarter);
+  
+    const totalTeamACV = filteredTeams.reduce((sum, t) => sum + t.acv, 0);
+  
+    const result = [];
+  
+    filteredTeams.forEach(team => {
+      const teamRatio = team.acv / totalTeamACV;
+  
+      filteredCusts.forEach(cust => {
+        result.push({
+          team: team.Team,
+          customerType: cust.Cust_Type,
+          count: Math.round(cust.count * teamRatio)
+        });
+      });
+    });
+  
+    return result;
+  }
+
+  export function getACVRangeByIndustry() {
+    const industryData = loadJSON('accountIndustry.json');
+    const acvRangeData = loadJSON('acvRange.json');
+  
+    const quarter = '2023-Q3';
+  
+    const filteredIndustries = industryData.filter(i => i.closed_fiscal_quarter === quarter);
+    const filteredACVs = acvRangeData.filter(a => a.closed_fiscal_quarter === quarter);
+  
+    const totalIndustryACV = filteredIndustries.reduce((sum, i) => sum + i.acv, 0);
+  
+    const result = [];
+  
+    filteredIndustries.forEach(industry => {
+      const industryRatio = industry.acv / totalIndustryACV;
+  
+      filteredACVs.forEach(acv => {
+        result.push({
+          industry: industry.Acct_Industry,
+          acvRange: acv.ACV_Range,
+          count: Math.round(acv.count * industryRatio)
+        });
+      });
+    });
+  
+    return result;
+  }

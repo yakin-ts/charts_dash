@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import { dataSlice } from './slices/dataSlice'
+import { insightSlice } from './slices/insightSlice'
 
 export const store = configureStore({
   reducer: {
     data: dataSlice.reducer,
+    insight: insightSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

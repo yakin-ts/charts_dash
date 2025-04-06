@@ -31,4 +31,26 @@ export interface AcvRange {
 
 
 //Types for insight data from the datasets
+export interface ACVbyCustAndIndustry {
+    "industry": string,
+    "customerType": string,
+    "acv": number,
+}
 
+export interface TeamPerformanceByACVRange {
+    "team": string,
+    "acvRange": string,
+    "count": number,
+}
+
+export interface CustomerDistributionByIndustry {
+    "team": string,
+    "customerType": string,
+    "count": number,
+}
+
+export interface ACVRangeByIndustry {
+    "industry": string,
+    "acvRange": string,
+    "count": number,
+}

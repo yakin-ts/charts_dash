@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routes
 app.use('/api/data', dataRoute);
-app.use('/api/insights', insightRoute);
+app.use('/api/insight', insightRoute);
 
 
 app.listen(PORT, () => {
